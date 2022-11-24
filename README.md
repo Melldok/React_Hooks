@@ -1,3 +1,3 @@
-# React_Hooks
+# React_ZeroToHero
 
-In this repository we will practice some React. Mostly React Hooks and components life cycle. Enjoy! 🎓
+In this repository we will learn React from zero to expert. Enjoy! 🎓

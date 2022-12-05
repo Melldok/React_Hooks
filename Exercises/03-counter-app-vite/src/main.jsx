@@ -10,7 +10,7 @@ CounterApp
 
 ReactDOM.createRoot( document.getElementById('root')).render(
     <React.StrictMode>
-        {/* <CounterApp value={0}></CounterApp> */}
-        <FirstApp title={ "Hello, I am Robb"}/>
+        <CounterApp value={0}></CounterApp>
+        {/* <FirstApp title={ "Hello, I am Robb"}/> */}
     </React.StrictMode>
 )

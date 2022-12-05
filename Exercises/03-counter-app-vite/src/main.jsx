@@ -4,7 +4,7 @@ import { App } from './App'
 import { CounterApp } from './CounterApp';
 import { FirstApp } from './FirstApp';
 import './style.css'
-CounterApp
+
 
 
 

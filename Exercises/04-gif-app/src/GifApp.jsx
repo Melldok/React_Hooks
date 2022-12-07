@@ -1,12 +1,11 @@
 
 import React from 'react';
 import { useState } from 'react';
-import { AddCategory } from './components/AddCategory';
-import { GifGrid } from './components/GifGrid';
+import { AddCategory, GifGrid } from './components';
 
 export const GifApp = () => {
 
-    const [categories, setCategories] = useState(["One Punch"])
+    const [categories, setCategories] = useState([])
 
     const onAddCategory = (newCategory) => {
         
@@ -15,6 +14,7 @@ export const GifApp = () => {
         const isContained = categories.some(category => {
             return category.toLowerCase() === newCategory.toLowerCase();
           });
+          
 
         if(isContained) return;
        

@@ -1,6 +1,6 @@
 # React Hooks
 
-## UseState :
+## useState :
 
 Todos los componentes de React tienen un estado, que puede cambiar con el tiempo. En el caso del hook Use State, lo manipularemos con desestructuración. 
 
@@ -14,6 +14,41 @@ const [inputValue, setInputValue] = useState('');
 ```
 
 Como se puede observar, el estado no se cambia directamente, sino con una función. Usamos la desesttructuración para cambiar los estados, declarando una variable y su setter, con useState(). Podemos declarar el valor inicial que queramos dentro de los paréntesis. Podemos utilizar variables declaradas o datos estáticos.
+
+## useState con objestos: 
+
+```js
+  export const CounterApp = () => {
+
+    const [counter, setCounter] = useState({
+        counter1: 10,
+        counter2: 20,
+        counter3: 30,
+    })
+
+    const {counter1, counter2, counter3} = counter
+
+  return (
+    <>
+        <h1>Counter: {counter1}</h1>
+        <h1>Counter: {counter2}</h1>
+        <h1>Counter: {counter3}</h1>
+
+
+        <hr />
+
+        <button className="btn" onClick={ () => setCounter({
+
+            ...counter,
+            counter1: counter1 +1,
+
+        })}>+1</button>
+    </>
+  )
+}
+``` 
+
+Cuando queremos usar useState con un objeto, pero solo queremos cabiar un valor, debemos conservar los valores anteriores del objeto.
 
 ## useEffect
 

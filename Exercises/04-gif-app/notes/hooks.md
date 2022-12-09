@@ -15,7 +15,7 @@ const [inputValue, setInputValue] = useState('');
 
 Como se puede observar, el estado no se cambia directamente, sino con una función. Usamos la desesttructuración para cambiar los estados, declarando una variable y su setter, con useState(). Podemos declarar el valor inicial que queramos dentro de los paréntesis. Podemos utilizar variables declaradas o datos estáticos.
 
-## useState con objestos: 
+## useState con objetos: 
 
 ```js
   export const CounterApp = () => {
@@ -48,7 +48,8 @@ Como se puede observar, el estado no se cambia directamente, sino con una funci�
 }
 ``` 
 
-Cuando queremos usar useState con un objeto, pero solo queremos cabiar un valor, debemos conservar los valores anteriores del objeto.
+Cuando queremos usar useState con un objeto, debemos mandar todos los valores del objeto a actualizar. Si queremos conservar inalteradas las el resto de propiedades del objeto, piodemos usar el operador spread.
+
 
 ## useEffect
 
@@ -124,3 +125,10 @@ Los custom hoooks se utilizan para ahorrarnos mucha lógica y código en la crea
 
 
 Tanto las helper functions como los custom hooks son funciones. La diferencia principal entre una helper function y un custom hook es que el custom hook utiliza otros hooks (State, Effect..) para realizar su lógica, y además interviene en el ciclo de vida del componente. A diferencia de las helper functions que sirven para realizar acciones lógicas concretas.
+
+
+
+## useRef
+
+Nos permite mantener una referencia, y cuando esa referencia cambia, no re-renderizar nuestro componente. 
+

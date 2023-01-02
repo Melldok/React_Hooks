@@ -10,7 +10,7 @@ export const CallbackHook = () => {
 
     const increment = useCallback(
       (c) => {
-        setCounter((value) => c + value);
+        setCounter((oldValue) => c + oldValue);
       },
       [],
     )

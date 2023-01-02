@@ -15,6 +15,7 @@ import { Layout } from './useLayoutEffect/Layout'
 import { Memorize } from './memos/Memorize'
 import { MemoHook } from './memos/MemoHook'
 import { CallbackHook } from './memos/CallbackHook'
+import { Father } from './07-tarea-memo/Father'
 
 
 

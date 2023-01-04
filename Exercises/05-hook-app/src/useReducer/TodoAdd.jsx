@@ -1,50 +1,44 @@
 import { useState } from "react"
+import { useForm } from "../hooks/useForm"
 
 
-export const TodoAdd = () => {
+export const TodoAdd = ({ handleNewTodo }) => {
 
-    const [todo, setTodo] = useState({})
+  const { description, onInputChange, onResetForm } = useForm({
+    description: '',
+  })
 
-    const handleSubmit = (event) => {
-        setTodo(
-          [  ...todo,
-            {
-        
-                id : new Date().getTime(),
-                description: todoValue.value ,
-                done: false,
-            }]
-        )
+
+  const onFormSubmit = ( event ) => {
+    event.preventDefault();
+    if (description.length <= 1 ) return;
+
+    const newTodo = {
+      id: new Date().getTime(),
+      done: false,
+      description: description
     }
 
-    const handleClick = (event) => {
-        event.preventDefault();
-        console.log(todo)
-    }
-
-    console.log(todo)
-    
+    handleNewTodo(newTodo)
+    onResetForm()
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-    <input 
-        type="text"
-        placeholder="What to do?"
-        className="form-control"
-        name="todoValue"
-     />
-     <button 
-        type="submit"
-        className="btn btn-primary mt-2"
-        >
-        Add Todo
-     </button>
-     <button 
-        className="btn btn-primary mt-2"
-        onClick={handleClick}
-        >
-        Log todos
-     </button>
-</form>
+    <form onSubmit={onFormSubmit}>
+      <input 
+          type="text"
+          placeholder="What to do?"
+          className="form-control"
+          name="description"
+          value={ description }
+          onChange={ onInputChange }
+      />
+      <button 
+          type="submit"
+          className="btn btn-primary mt-2"
+          >
+          Add Todo
+      </button>
+    </form>
   )
 }

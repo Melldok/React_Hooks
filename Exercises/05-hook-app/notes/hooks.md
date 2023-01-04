@@ -222,3 +222,23 @@ export const ShowIncrement = memo(({ increment }) => {
   )
 })
 ```
+
+## Reducer 
+  
+  Es una funcion normal y corriente
+  Debe de ser una funcion pura
+    - No debe tener efectos secundarios
+    - No debe tener tareas asincronas
+    - Debe retornar siempre un nuevo estado, no debemos mutar el estado
+    - No debe llamar el locaStorage o sessionStorage dentro del reducer
+    - No debe de requerir mas de una accion que puede tener un argumento
+  Debe retornar un nuevo estado
+  Usualmente solo recibe dos argumentos
+    - El valor inicial
+    - La accion a ejecutar
+
+## useReducer 
+
+Funciona como alternativa a useState, se suele utilizar con estados mas complejos. 
+  
+

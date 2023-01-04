@@ -16,13 +16,14 @@ import { Memorize } from './memos/Memorize'
 import { MemoHook } from './memos/MemoHook'
 import { CallbackHook } from './memos/CallbackHook'
 import { Father } from './07-tarea-memo/Father'
-
+// import './useReducer/intro-reducer'
+import { TodoApp } from './useReducer/TodoApp'
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
-    <CallbackHook />
+    <TodoApp />
   //</React.StrictMode>
 )

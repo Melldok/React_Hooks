@@ -18,12 +18,18 @@ import { CallbackHook } from './memos/CallbackHook'
 import { Father } from './07-tarea-memo/Father'
 // import './useReducer/intro-reducer'
 import { TodoApp } from './useReducer/TodoApp'
+import { MainApp } from './useContext/MainApp'
+import { BrowserRouter } from 'react-router-dom'
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
-    <TodoApp />
+  
+  <BrowserRouter>
+    <MainApp />
+  </BrowserRouter>
+  
   //</React.StrictMode>
 )

@@ -239,6 +239,101 @@ export const ShowIncrement = memo(({ increment }) => {
 
 ## useReducer 
 
-Funciona como alternativa a useState, se suele utilizar con estados mas complejos. 
-  
+Funciona como alternativa a useState, se suele utilizar con estados mas complejos. Sobre todo si se tienen que manejar muchos estados al mismo timepo.
 
+```js
+  
+  const todoReducer = ( initialState = [], action ) => {
+    switch ( action.type ) {
+        case 'Add Todo':
+           return [ ...initialState, action.payload ]
+        
+        case 'Delete Todo' :
+            return initialState.filter( todo => todo.id !== action.payload );
+        
+        case 'Toggle Todo' :
+            return initialState.map( todo => {
+                if(todo.id === action.payload){//id
+                    return{
+                        ...todo,
+                        done: !todo.done
+                    }
+                }
+                return todo
+            })
+
+        case 'Update Todo' :
+            return initialState.map( todo => {
+                if(todo.id === action.id){//id
+                    return{
+                        ...todo,
+                        description: action.payload
+                    }
+                }
+                return todo
+            })
+
+        default:
+            return initialState;
+    }
+}
+```
+
+useReducer tiene tres argumentos. Sirve para realizar diferentes acciones en nuestra aplicacion, que definimos con el type y el payload. EL type es el tipo de accion que queremos hacer, por ejemplo añadir, y el payload es el valor que tiene la acción una vez realizada. 
+
+
+```js
+
+   const init = () => {
+        // Try to parse what is inside of todos, if its empty. bring an empty array
+        return JSON.parse(localStorage.getItem('todos')) || [];
+    }
+
+
+    const [ todos, dispatchTodo ] = useReducer(todoReducer, [], init)
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify( todos ))
+    }, [todos])
+    
+
+    const handleNewTodo = (todo) => {
+        const action = {
+            type: 'Add Todo',
+            payload: todo
+        }
+
+        dispatchTodo( action )
+    }
+
+    const handleDeleteTodo = (id) => {
+        dispatchTodo({
+            type: 'Delete Todo',
+            payload: id
+        })
+    }
+
+    const handleToggleTodo = (id) => {
+        dispatchTodo({
+            type: 'Toggle Todo',
+            payload: id
+        })
+    }
+
+
+    const handleUpdateTodo = (id, newTodo) => {
+        const action = {
+            type: "Update Todo",
+            id: id,
+            payload: newTodo
+        }
+        dispatchTodo(action)
+      };
+    
+
+```
+
+
+## useContext 
+
+useContext nos ayuda a romper la referencia de la informacion, para que esta no tenga que fluir de manera escalonada entre parientes sino de una forma mas directa. La idea es tener centralizado en un lugar, el contexto, la informacion, para que los sucesivos componentes puedan acceder a ella de forma directa. Es un tipo de comunicacion entre componentes sin props. 

@@ -8,6 +8,7 @@ import { NavBar } from "./NavBar"
 export const MainApp = () => {
   return (
     <UserProvider>
+      {/* UserProvider is our component context provider, we wrapped all its children, so all of them will have access to props */}
         
         <NavBar/>
         <hr />

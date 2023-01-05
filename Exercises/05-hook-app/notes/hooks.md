@@ -337,3 +337,24 @@ useReducer tiene tres argumentos. Sirve para realizar diferentes acciones en nue
 ## useContext 
 
 useContext nos ayuda a romper la referencia de la informacion, para que esta no tenga que fluir de manera escalonada entre parientes sino de una forma mas directa. La idea es tener centralizado en un lugar, el contexto, la informacion, para que los sucesivos componentes puedan acceder a ella de forma directa. Es un tipo de comunicacion entre componentes sin props. 
+
+### Declarando el contexto
+
+```js
+  export const UserContext = createContext();
+```
+
+### Consumiendo el contexto 
+
+```js
+    const something = useContext( UserContext );
+
+```
+
+Lo mas beneficioso es poder acceder a esta informacion desde cualquier parte de nuestra aplicacion, sin tener que hacer que la informacion viaje de forma tediosa de padres a hijos y nietos. useContext siempre viaja y busca la informacion hacia arriba, no hacia abajo. 
+
+### Desestructurando para acceder a la informacion concreta elegida
+
+```js
+    const { hola, user } = useContext( UserContext );
+```

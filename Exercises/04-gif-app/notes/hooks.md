@@ -132,3 +132,7 @@ Tanto las helper functions como los custom hooks son funciones. La diferencia pr
 
 Nos permite mantener una referencia, y cuando esa referencia cambia, no re-renderizar nuestro componente. 
 
+
+## useLocaton 
+
+Permite lcoalizar la ruta activa que estamos utilizando en este momento. Muy útil si queremos cambiar algún elemento del DOM dependiendo de ella.

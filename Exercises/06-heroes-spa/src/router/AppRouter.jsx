@@ -5,18 +5,32 @@ import { LoginPage } from '../auth'
 
 
 import { Navbar } from '../ui'
+import { PrivateRoute } from './PrivateRoute'
+import { PublicRoute } from './PublicRoute'
+
 
 export const AppRouter = () => {
   return (
     <>
       <Routes>
 
+      {/* If the user is logged in, he cant see login page */}
+      <Route path="/login" element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
 
-        <Route path="login" element={<LoginPage />} />
+       />
+        {/* If the user is not logged in, he cant see app page */}
+        <Route path="/*" element={
+          <PrivateRoute>
+            <HeroesRoutes />
+          </PrivateRoute>
+        }
         
-        <Route path="/*" element={<HeroesRoutes />} />
-
-
+        />
+ 
 
       </Routes>
     </>

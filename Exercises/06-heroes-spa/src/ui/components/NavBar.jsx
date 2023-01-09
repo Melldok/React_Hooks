@@ -1,14 +1,20 @@
+import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../auth/context/AuthContext';
+
 
 
 export const Navbar = () => {
 
+    // Destructure the user, which is provided by the context and it has id and name
+    const { user, logout } = useContext( AuthContext )
     const navigate = useNavigate();
 
 
     const handleLogout = () => {
+        logout()
         navigate('/login', {
-            // Replaces the hitoric of the user, so he cant go back to the previous route if he clicks back
+            // Replaces the historic of the user, so he cant go back to the previous route if he clicks back
             replace: true,
 
         })
@@ -59,7 +65,7 @@ export const Navbar = () => {
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav ml-auto">
                    <span className='nav-item nav-link text-primary'>
-                        Robb
+                        {user?.name}  {/*if there isn't a value, don't continue */}
                     </span>
 
                     <button

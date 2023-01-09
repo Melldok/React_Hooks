@@ -7,6 +7,7 @@ export const MarvelPage = () => {
         <h1>Marvel Page</h1>
         <hr />
 
+        {/* publisher sent as props to filter the search */}
         <HeroList publisher={'Marvel Comics'}/>
     </>
   

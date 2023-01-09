@@ -19,10 +19,10 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-sm navbar-light bg-warning p-2 mb-4" >
             
             <Link 
-                className="navbar-brand" 
+                className="navbar-brand bg-danger p-2 text-light rounded" 
                 to="/"
             >
-                Asociaciones
+                HeroApp
             </Link>
 
             <div className="navbar-collapse">
@@ -49,7 +49,7 @@ export const Navbar = () => {
                     </NavLink>
                     <NavLink 
                         className={( {isActive} ) => `nav-item nav-link ${ isActive ? 'active' : ''}`}
-                        to="/hero"
+                        to="/hero/marvel-spider"
                     >
                         Hero
                     </NavLink>

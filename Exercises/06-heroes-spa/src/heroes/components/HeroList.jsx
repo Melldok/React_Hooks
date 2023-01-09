@@ -1,13 +1,15 @@
+import { useMemo } from "react";
 import { getHeroesByPublisher } from "../helpers"
 import { HeroCard } from "./HeroCard";
 
 export const HeroList = ({ publisher }) => {
 
     // helper function that filters the data array by publisher (Sent by props)
-    const heroes = getHeroesByPublisher(publisher);
+    const heroes = useMemo(() => getHeroesByPublisher(publisher), [publisher]) ;
+
 
   return (
-    <div className="row rows-cols-1 row-cols-md-3 g-3">
+    <div className="row rows-cols-1 row-cols-md-2 g-3 ">
         {
             heroes.map(hero => (
                <HeroCard key={ hero.id } 

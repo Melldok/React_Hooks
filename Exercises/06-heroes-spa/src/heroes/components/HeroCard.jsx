@@ -30,7 +30,7 @@ export const HeroCard = ({ id, superhero, publisher, alter_ego, first_appearance
                 <small className="text-muted">{first_appearance}</small>
              </p>
               {/* with this id we are sending props that we will use as params on the hero page */}
-              <Link to={`/hero/${id}`} >
+              <Link className="text-danger" to={`/hero/${id}`} >
                 More info
               </Link>
 

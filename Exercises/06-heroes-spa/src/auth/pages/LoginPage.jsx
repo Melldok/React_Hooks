@@ -10,11 +10,14 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = ( ) => {
+
+    // If there is a last path recorded on localstorage, return to it once logged again
+    const lastPath = localStorage.getItem('lastPath') || '/';
     
     //Login with this name
     login('Robb Stark');
 
-    navigate('/', {
+    navigate( lastPath, {
       // Replaces the hitoric of the user, so he cant go back to the previous route if he clicks back
       replace: true,
 

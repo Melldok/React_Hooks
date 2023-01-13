@@ -97,3 +97,6 @@ export default counterSlice.reducer
 Los thunks son acciones asincronas que disparan otra accion cuando se resuelve la peticion asincrona.
 
 
+### AXIOS
+
+Es un cliente HTTP basado en promesas para node.js y el navegador. 

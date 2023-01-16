@@ -96,6 +96,34 @@ export default counterSlice.reducer
 
 Los thunks son acciones asincronas que disparan otra accion cuando se resuelve la peticion asincrona.
 
+Definiendo la funcion :
+
+```js
+  export const checkingAuthentication = (email, password) => {
+    return async(dispatch) => {
+        //calling the action creation from the Slice using dispatch
+        dispatch(checkingCredentials());
+
+    }
+}
+```
+Uso: Necesitamos definir el dispatch, importado, que sera el lanzador de nuestras funciones asincronas thunks, para mas tarde poder utilizarlo dentro de un componente.
+
+```js
+    export const LoginPage = () => {
+
+  // using the dispatch for our Thunk function
+    const dispatch = useDispatch();
+
+     // Form auth
+  const onSubmit = ( event ) => {
+    event.preventDefault();
+
+    console.log({email,password})
+    dispatch( checkingAuthentication() );
+  }
+```
+
 
 ### AXIOS
 

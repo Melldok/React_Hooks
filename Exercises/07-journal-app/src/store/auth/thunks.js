@@ -1,4 +1,5 @@
-import { signInWithGoogle } from "../../firebase/providers";
+import { async } from "@firebase/util";
+import { registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
 import { checkingCredentials, logout, login } from "./"
 
 // Defining a thunk function
@@ -21,5 +22,20 @@ export const startGoogleSingIn = () => {
         dispatch(login(result))
 
 
+    }
+}
+
+
+
+export const startCreatingUserWithEmailPassword = ({email, password, displayName}) => {
+    return async( dispatch ) => {
+        
+        dispatch(checkingCredentials());
+
+        const { ok, uid, photoURL, errorMessage } = await registerUserWithEmailPassword({ email, password });
+
+       if( !ok ) return dispatch(logout({ errorMessage }))
+
+       dispatch(login({ uid, displayName, email, photoURL }))
     }
 }

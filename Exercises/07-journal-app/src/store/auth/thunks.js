@@ -1,4 +1,5 @@
-import { checkingCredentials } from "./"
+import { signInWithGoogle } from "../../firebase/providers";
+import { checkingCredentials, logout, login } from "./"
 
 // Defining a thunk function
 export const checkingAuthentication = (email, password) => {
@@ -12,6 +13,13 @@ export const checkingAuthentication = (email, password) => {
 
 export const startGoogleSingIn = () => {
     return async(dispatch) => {
-        dispatch(checkingCredentials())
+        dispatch(checkingCredentials());
+        const result = signInWithGoogle();
+        //If the result is not ok, dispatch this function ( created on slices)
+        if(!result.ok) return dispatch(logout( result.errorMessage ))
+        // If everything is oik on auth, do this
+        dispatch(login(result))
+
+
     }
 }

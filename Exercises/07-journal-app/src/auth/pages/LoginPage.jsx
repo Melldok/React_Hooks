@@ -1,6 +1,7 @@
 
 // We have to change the name of the Link because it has the same as the one from mui, then we can use it
 import { Link as RouterLink} from 'react-router-dom'
+import { useMemo } from 'react'
 
 
 import { Google } from "@mui/icons-material"
@@ -8,11 +9,16 @@ import { Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
 import { checkingAuthentication, startGoogleSingIn } from '../../store/auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 
 
 export const LoginPage = () => {
+
+  // Selecting what we want from the store 
+  const { status } = useSelector(state => state.auth)
+
 
  // using the dispatch for our Thunk function
   const dispatch = useDispatch();
@@ -22,6 +28,10 @@ export const LoginPage = () => {
     email: 'robb@google.com',
     password: '123456'
   })
+
+
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
+
 
  // Form auth
   const onSubmit = ( event ) => {
@@ -70,12 +80,19 @@ export const LoginPage = () => {
 
                   <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
                     <Grid item xs={12} sm={ 6 } >
-                      <Button type="submit" variant="contained" fullWidth>
+                      <Button
+                        disabled={isAuthenticating} 
+                        type="submit" 
+                        variant="contained" 
+                        fullWidth
+
+                        >
                         Login
                       </Button>
                     </Grid>
                     <Grid item xs={12} sm={ 6 } >
                       <Button 
+                        disabled={isAuthenticating} 
                         variant="contained"
                         fullWidth
                         onClick={onGoogleSingIn}>

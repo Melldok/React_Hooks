@@ -16,7 +16,7 @@ https://dev.to/oahehc/redux-data-flow-and-react-component-life-cycle-11n -- Diag
 
 <br />
 
-# Redux Toolkit 
+# Redux Toolkit   
 
 Es un set de herramientas que hacen el desarrollo con redux mas rapido y eficiente.
 
@@ -110,18 +110,56 @@ Definiendo la funcion :
 Uso: Necesitamos definir el dispatch, importado, que sera el lanzador de nuestras funciones asincronas thunks, para mas tarde poder utilizarlo dentro de un componente.
 
 ```js
-    export const LoginPage = () => {
 
-  // using the dispatch for our Thunk function
-    const dispatch = useDispatch();
+import { createSlice } from '@reduxjs/toolkit';
+export const authSlice = createSlice({
+    name: 'auth',
+    initialState: {
+        status: 'not-authenticated', // checking, not authenticated, authenticated
+        uid: null,
+        email: null,
+        displayName: null,
+        photoURL: null,
+        errorMessage: null, 
+    },
+    reducers: {
+        logion: (state, action) => {
 
-     // Form auth
-  const onSubmit = ( event ) => {
-    event.preventDefault();
+        },
+        logout: (state, payload) => {
 
-    console.log({email,password})
-    dispatch( checkingAuthentication() );
+        },
+        checkingCredentials: (state) => {
+            state.status = 'checking'
+        }
+    }
+});
+
+
+// Action creators are generated for each case reducer function
+export const { login, logout, checkingCredentials } = authSlice.actions;
+
+
+  export const startGoogleSingIn = () => {
+      return async(dispatch) => {
+          dispatch(checkingCredentials());
+          const result = signInWithGoogle();
+          //If the result is not ok, dispatch this function ( created on slices)
+          if(!result.ok) dispatch(logout())
+      }
   }
+
+
+
+ // using the dispatch for our Thunk function
+  const dispatch = useDispatch();
+
+  // Google auth
+  const onGoogleSingIn = ( ) => {
+    console.log('onGoogleSingIn')
+    dispatch(startGoogleSingIn());
+  }
+
 ```
 
 

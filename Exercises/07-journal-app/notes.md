@@ -123,7 +123,7 @@ export const authSlice = createSlice({
         errorMessage: null, 
     },
     reducers: {
-        logion: (state, action) => {
+        login: (state, action) => {
 
         },
         logout: (state, payload) => {

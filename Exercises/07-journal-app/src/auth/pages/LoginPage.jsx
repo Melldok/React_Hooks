@@ -5,10 +5,10 @@ import { useMemo } from 'react'
 
 
 import { Google } from "@mui/icons-material"
-import { Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSingIn } from '../../store/auth'
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 export const LoginPage = () => {
 
   // Selecting what we want from the store 
-  const { status } = useSelector(state => state.auth)
+  const { status, errorMessage } = useSelector(state => state.auth)
 
 
  // using the dispatch for our Thunk function
@@ -25,8 +25,8 @@ export const LoginPage = () => {
 
 
   const { email, password, onInputChange } = useForm({
-    email: 'robb@google.com',
-    password: '123456'
+    email: '',
+    password: ''
   })
 
 
@@ -37,23 +37,25 @@ export const LoginPage = () => {
   const onSubmit = ( event ) => {
     event.preventDefault();
 
-    console.log({email,password})
-    dispatch( checkingAuthentication() );
+    // console.log({email,password})
+    dispatch(startLoginWithEmailPassword({email, password}) );
   }
+
+
 
   // Google auth
   const onGoogleSingIn = ( ) => {
-    console.log('onGoogleSingIn')
-    dispatch(startGoogleSingIn());
+    dispatch(startGoogleSignIn());
   }
 
 
 
   return (
 
-    <AuthLayout title='Login'>
+    <AuthLayout title='Login' className="animate__animated animate__fadeIn">
           
-          <form onSubmit={onSubmit}> 
+          <form onSubmit={onSubmit}
+           className="animate__animated animate__fadeIn"> 
               <Grid container>
                   <Grid item xs={12} sx={{ mt: 2 }} >
                     <TextField 
@@ -76,6 +78,20 @@ export const LoginPage = () => {
                       value={password}
                       onChange={ onInputChange }
                        />
+                  </Grid>
+                  
+                  <Grid 
+                    container
+                    display={ !!errorMessage ? '' : 'none'}
+                    sx={{mt: 1, mb: 1}}
+                    >
+                      <Grid 
+                        item 
+                        xs={12}
+                        
+                        >
+                          <Alert severity='error'>{errorMessage}</Alert>
+                       </Grid>
                   </Grid>
 
                   <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >

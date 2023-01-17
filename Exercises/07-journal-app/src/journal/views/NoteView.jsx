@@ -5,6 +5,7 @@ import { ImageGallery } from "../components/ImageGallery"
 export const NoteView = () => {
   return (
     <Grid container
+        className="animate__animated animate__fadeIn"
         direction='row' 
         justifyContent='space-between'
         alignItems='center'

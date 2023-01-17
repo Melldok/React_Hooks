@@ -1,21 +1,47 @@
 import { AddOutlined, MailOutline } from "@mui/icons-material"
 import { IconButton, Typography } from "@mui/material"
+import { useDispatch, useSelector } from "react-redux"
+import { savingNewNote } from "../../store/journal/journalSlice"
+import { startNewNote } from "../../store/journal/thunks"
 import { JournalLayout } from "../layout/JournalLayout"
 import { NoteView } from "../views/NoteView"
 import { NothingSelectedView } from "../views/NothingSelectedView"
 
 
 export const JournalPage = () => {
+
+  
+
+  const { isSaving, active } = useSelector( state => state.journal)
+
+  const dispatch = useDispatch();
+
+  const onCLickNewNote = () => {
+    dispatch(savingNewNote())
+    dispatch(startNewNote())
+  }
+
+  
+
+
   return (
     <>
+
+    
+
         <JournalLayout>
-        {/* <Typography>JLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo</Typography> */}
 
-        <NothingSelectedView />
+        {
+          
+          (!!active) ? <NoteView /> :  <NothingSelectedView />
 
-        {/* <NoteView /> */}
+        }
 
-        <IconButton 
+       
+
+        <IconButton
+          disabled={isSaving} 
+          onClick={onCLickNewNote}
           size="large"
           sx={{
             color: 'white',

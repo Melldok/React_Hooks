@@ -49,116 +49,100 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 ## Slices 
 
-Nos permite crear reducers, nombrarlos y definir las acciones con las que se van a disparar. Es una **funcion que recibe un objeto**. Ese objeto tiene nombre, estado inicial y unos reducers.
+Nos permite crear reducers, nombrarlos y definir las acciones con las que se van a disparar. Es una **funcion que recibe un objeto**. Ese objeto tiene nombre, estado inicial y unos reducers, que son todas las funcionalidades de nuestra app. 
+
+
+### Creando el slice
 
 
 ```js
-import { createSlice } from '@reduxjs/toolkit'
-
-const initialState = {
-  value: 0,
-}
-
-export const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
+  import { createSlice } from '@reduxjs/toolkit';
+export const journalSlice = createSlice({
+    name: 'journal',
+    initialState: {
+        isSaving: true,
+        messageSaved: '',
+        notes: [],
+        active: null,
     },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    },
-  },
-})
+    reducers: {
+        
+        addNewEmptyNote: (state,action) => {
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+        },
+        setActiveNote: (state, action) => {
 
-export default counterSlice.reducer
+        },
+        setNotes: (state,action) => {
+
+        },
+        setSaving: (state) => {
+
+        },
+        updateNote: (state,action) => {
+
+        },
+        deleteNoteById: (state, action) => {
+
+        }
+
+        
+    }
+});
+
+
+// Action creators -- Se refieren y llaman a cada uno de nuestros reducers arriba definidos.
+export const { addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById } = journalSlice.actions;
 ```
 
 
 ### Utilizar nuestros states y data del store con los hooks useSelector y useDispatch :
 
 ```js
+  //UseSelector selecciona el slice dentro de nuestra store, para acceder a todos los estados de ese slice 
   const { counter } = useSelector( state => state.counter)
 ```
 
-### Thunks
+## Thunks
 
 Los thunks son acciones asincronas que disparan otra accion cuando se resuelve la peticion asincrona.
 
-Definiendo la funcion :
+### Definiendo la funcion en Thunks.js :
 
 ```js
-  export const checkingAuthentication = (email, password) => {
-    return async(dispatch) => {
-        //calling the action creation from the Slice using dispatch
-        dispatch(checkingCredentials());
-
-    }
-}
-```
-Uso: Necesitamos definir el dispatch, importado, que sera el lanzador de nuestras funciones asincronas thunks, para mas tarde poder utilizarlo dentro de un componente.
-
-```js
-
-import { createSlice } from '@reduxjs/toolkit';
-export const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        status: 'not-authenticated', // checking, not authenticated, authenticated
-        uid: null,
-        email: null,
-        displayName: null,
-        photoURL: null,
-        errorMessage: null, 
-    },
-    reducers: {
-        login: (state, action) => {
-
-        },
-        logout: (state, payload) => {
-
-        },
-        checkingCredentials: (state) => {
-            state.status = 'checking'
-        }
-    }
-});
-
-
-// Action creators are generated for each case reducer function
-export const { login, logout, checkingCredentials } = authSlice.actions;
-
-
-  export const startGoogleSingIn = () => {
+    export const startNewNote = () => {
       return async(dispatch) => {
-          dispatch(checkingCredentials());
-          const result = signInWithGoogle();
-          //If the result is not ok, dispatch this function ( created on slices)
-          if(!result.ok) dispatch(logout())
+
+          console.log('startNewNote')
+
+          const newNote = {
+              title: '',
+              body: '',
+              date: new Date().getTime(),
+          }
       }
   }
 
+```
+###  Uso del thunk: 
 
 
- // using the dispatch for our Thunk function
-  const dispatch = useDispatch();
+```js
 
-  // Google auth
-  const onGoogleSingIn = ( ) => {
-    console.log('onGoogleSingIn')
-    dispatch(startGoogleSingIn());
+  // Dentro del componente 
+  export const JournalPage = () => {
+
+    //Necesitamos el dispatch para poder utilizar el thunk
+    const dispatch = useDispatch();
+
+    const onCLickNewNote = () => {
+      // Creamos un inicializador del hunk
+      dispatch(startNewNote())
+      // Al lanzar el thunk, este realizará una accion asincrona, para acto seguido llamar a otra funcion (La cual estara definida dentro de los reducers de nuestro slice)
+    }
   }
+
+
 
 ```
 

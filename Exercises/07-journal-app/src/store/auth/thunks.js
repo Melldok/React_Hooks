@@ -1,5 +1,6 @@
 import { async } from "@firebase/util";
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
+import { clearNotesOnLogout } from "../journal/journalSlice";
 import { checkingCredentials, logout, login } from "./"
 
 // Defining a thunk function
@@ -60,6 +61,7 @@ export const startLogout = () => {
     return async(dispatch) => {
         await logoutFirebase();
 
+        dispatch(clearNotesOnLogout());
         dispatch(logout());
     }
 }

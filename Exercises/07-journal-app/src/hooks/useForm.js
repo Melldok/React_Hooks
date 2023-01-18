@@ -9,6 +9,11 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
         // Every time the state of the form changes, launch createValidators
       createValidators();
     }, [formState])
+    
+    useEffect(() => {
+        // WHen active note changes
+        setFormState(initialForm)
+    }, [initialForm])
 
 
     // Check the whole state of the form to see if all properties are ok

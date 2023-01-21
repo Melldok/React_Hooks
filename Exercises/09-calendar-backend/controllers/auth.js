@@ -103,11 +103,17 @@ const userLogin = async(req,resp = response) => {
 }
 
 
-const revalidateToken = (req,resp = response) => {
+const revalidateToken = async(req,resp = response) => {
+
+    const { uid, name} = req
+
+    const token = await generarJWT(uid, name)
 
     resp.json({
         ok: true,
-        msg: 'renew'
+        uid,
+        name,
+        token
     })
 }
 

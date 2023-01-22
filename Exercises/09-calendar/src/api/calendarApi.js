@@ -2,11 +2,24 @@
 import axios from 'axios'
 import { getEnvVariables } from '../helpers/getEnvVariables'
 
+
+// Crear la conexion
+
+
 const {VITE_API_URL} = getEnvVariables()
 
 const calendarApi = axios.create({
     baseURL: VITE_API_URL
 })
+
+
+
+
+
+
+
+
+
 
 
 // TODO : Configurar interceptores

@@ -35,7 +35,7 @@ export const CalendarModal = () => {
 
 
     const {isDateModalOpen, closeDateModal} = useUiStore();
-    const {activeEvent, startSavingEvent} = useCalendarStore()
+    const {activeEvent, startSavingEvent, hasEventSelected, startDeletingEvent} = useCalendarStore()
     
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [formValues, setFormValues] = useState({
@@ -106,10 +106,17 @@ export const CalendarModal = () => {
         await startSavingEvent( formValues );
         closeDateModal();
         setFormSubmitted(false)
-       
-       
+  
+
+      
+
     
     }
+
+
+    const handleDelete = () => {
+      startDeletingEvent();
+  }
 
   return (
     <Modal
@@ -185,9 +192,19 @@ export const CalendarModal = () => {
         <button
           type="submit"
           className="btn btn-outline-primary btn-block"
+          style={{
+            display: hasEventSelected ? '' : 'none'
+          }}
         >
           <i className="far fa-save"></i>
           <span> Guardar</span>
+        </button>
+        <button 
+          className="btn btn-outline-primary btn-block"
+          onClick={handleDelete}
+          >
+        <i className="fa-sharp fa-solid fa-trash"></i>
+        <span> Borrar</span>
         </button>
 
       </form>

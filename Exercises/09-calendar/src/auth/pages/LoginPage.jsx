@@ -39,6 +39,7 @@ export const LoginPage = () => {
 
 
     const registerSubmit = (event) => {
+       
         event.preventDefault()
 
         // Validaciones

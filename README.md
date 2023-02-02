@@ -2,7 +2,7 @@
 
 ## Full set of exercises learnt on the React course "Zero to Expert" from Udemy. 
 
-### Concepts and anilities learnt during this course:
+### Concepts and abilities learnt during this course:
 
 - General aspects about React
 - Unit and integration testing 

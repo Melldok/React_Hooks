@@ -18,8 +18,6 @@ export const PrivateRoute = ({ children }) => {
 
 
 
-    console.log(location)
-
   return (logged)
     ? children : <Navigate to="/login" />
   

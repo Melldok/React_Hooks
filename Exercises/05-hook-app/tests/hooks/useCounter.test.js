@@ -1,72 +1,78 @@
-import { act, renderHook } from "@testing-library/react"
-import { useCounter } from "../../src/hooks/useCounter"
+const { renderHook, act } = require("@testing-library/react")
+const { useCounter } = require("../../src/hooks/useCounter")
 
 
-describe('Testing on useCounter', () => { 
-    test('should return default values', () => { 
-        
-        // We use renderHook to actually render the component we want
-        const { result } = renderHook(() => useCounter());
-        const { counter, decrement, increment, reset } = result.current;
-        
+
+describe('Pruebas en useCounter', () => { 
+    test('Debe retornar los datos por defecto', () => { 
+
+        // Result es el resultado de renderizar el hook. se llama siempre asi
+        const {result} = renderHook(() => useCounter());
+        // Desestructuramos las props del propio hook del current result
+        const {counter, decrement, increment, reset} = result.current;
 
         expect(counter).toBe(1);
-        expect(decrement).toEqual( expect.any( Function ) );
-        expect(increment).toEqual( expect.any( Function ) );
-        expect(reset).toEqual( expect.any( Function ) );
-       
+        expect(decrement).toEqual(expect.any(Function))
+        expect(increment).toEqual(expect.any(Function))
+        expect(reset).toEqual(expect.any(Function))
+
 
      })
 
-
-    test('should generate counter with value 100', () => { 
-        const { result } = renderHook(() => useCounter(100));
+     test('Debe generar el counter con valor 100', () => { 
         
+        const {result} = renderHook(() => useCounter(100));
+
         expect(result.current.counter).toBe(100);
+
+
       })
 
-    test('should increment the value of counter', () => { 
-        const { result } = renderHook(() => useCounter(100));
-        const { counter, increment } = result.current;
+    
+      test('Debe incrementar el contador', () => { 
         
-        // If we want to test a function we have to use act in order to get that function running.
+        const {result} = renderHook(() => useCounter(100));
+        const {increment, counter} = result.current;
+
         act(() => {
             increment();
-            increment(2)
+            increment(2);
         })
 
+        //expect(counter).toBe(101) Esta prueba dara un falso negativo, por eso necesitamos coger el valor actual actualizado
+        expect(result.current.counter).toBe(103)
 
-        expect( result.current.counter ).toBe(103)
 
-       })
-
-       test('should decrement the value of counter', () => { 
-        const { result } = renderHook(() => useCounter(100));
-        const { counter, decrement } = result.current;
+     })
+    test('Debe decrementar el contador', () => { 
         
-        
+        const {result} = renderHook(() => useCounter(100));
+        const {decrement, counter} = result.current;
+
         act(() => {
-            decrement(10);
-          
+            decrement();
+            decrement(2);
         })
 
-        expect( result.current.counter ).toBe(90)
+        //expect(counter).toBe(101) Esta prueba dara un falso negativo, por eso necesitamos coger el valor actual actualizado
+        expect(result.current.counter).toBe(97)
 
-       })
 
-       test('should decrement the value of counter', () => { 
-        const { result } = renderHook(() => useCounter(100));
-        const { counter, increment, reset } = result.current;
+     })
+    test('Debe resetear el contador', () => { 
         
-      
+        const {result} = renderHook(() => useCounter(100));
+        const {decrement, counter, reset} = result.current;
+
         act(() => {
-            
-            increment(20)
-            reset();
-          
+            decrement();
+            decrement(2);
+            reset()
         })
 
-        expect( result.current.counter ).toBe(100)
+        //expect(counter).toBe(101) Esta prueba dara un falso negativo, por eso necesitamos coger el valor actual actualizado
+        expect(result.current.counter).toBe(100)
 
-       })
+
+     })
  })

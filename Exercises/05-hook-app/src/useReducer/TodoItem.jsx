@@ -40,6 +40,7 @@ export const TodoItem = ({ todo, onDeleteTodo, onToggleTodo, onUpdateTodo }) => 
           }
           onChange={onInputChange}
          />
+         {todo.description}
         <div>
         <button 
         className='btn btn-warning'

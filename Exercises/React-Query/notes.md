@@ -149,13 +149,56 @@ React Query dispone de varios botones de estado que nos indican en qué punto se
 
 ```typescript
     const labelsQuery = useQuery(
+          // Array que determina el caché
         ['labels'],
+          // Función que se ejecuta para obtener los datos
         getLabels,
         {
           // Esta propiedad impide que se haga prefetch de los datos cuando el usuario clicka fuera de la ventana y vuelve a clickar en ella. Tenerl oactivo sirve por ejemplo siqueremos que nuestro usuario tenga siempre la última versión de los datos, si va a otra ventana y vuelve a la nuestra.
           refetchOnWindowFocus: false,
           // Esta propiedad determina un tiempo de vida de los datos en caché. En este caso, los datos se refrescarán cada 5 minutos. Muy útil para reducir el número de llamadas a una API.
-          staleTime: 1000 * 60 * 5 //
+          staleTime: 1000 * 60 * 5, 
+          // Nos sirve para mostrar una información antes de que se resuelva la promesa.
+          placeholderData: [
+            {
+              id: 69105383,
+              node_id: "MDU6TGFiZWw2OTEwNTM4Mw==",
+              url: "https://api.github.com/repos/facebook/react/labels/Browser:%20IE",
+              name: "Browser: IE",
+              color: "c7def8",
+              default: false
+            },
+            {
+              id: 2192194047,
+              node_id: "MDU6TGFiZWwyMTkyMTk0MDQ3",
+              url: "https://api.github.com/repos/facebook/react/labels/Component:%20Flight",
+              name: "Component: Flight",
+              color: "c4523e",
+              default: false
+              
+            }
+          ],
+         // Esta propiedad le dice a React Query que confíe en estos datos, que los muestre como frescos y no los vuelva a buscar.
+          initialData: [
+            {
+              id: 69105383,
+              node_id: "MDU6TGFiZWw2OTEwNTM4Mw==",
+              url: "https://api.github.com/repos/facebook/react/labels/Browser:%20IE",
+              name: "Browser: IE",
+              color: "c7def8",
+              default: false
+            },
+            {
+              id: 2192194047,
+              node_id: "MDU6TGFiZWwyMTkyMTk0MDQ3",
+              url: "https://api.github.com/repos/facebook/react/labels/Component:%20Flight",
+              name: "Component: Flight",
+              color: "c4523e",
+              default: false
+              
+            }
+              
+          ],
         }
       );
 ```
@@ -164,7 +207,8 @@ React Query dispone de varios botones de estado que nos indican en qué punto se
 ## Funciones incorporadas interesantes ##
     
     query.isLoading -- Se refiere a los datos que tiene el propio componente físicamente. Si el componente no ha cargado nada del fetch y tampoco tiene nada en caché, está cargando, pero una vez ha cargado la información por primera vez, isLoading será false.
-    query.isFetching -- 
+    query.isFetching -- Se dispara siempre que estemos haciendo una petición a la API, ya sea l a primera vez o refrescando info. 
+    query.initialData -- 
     query.isError --
     query.refetch --
     query.data --
@@ -176,6 +220,8 @@ React Query dispone de varios botones de estado que nos indican en qué punto se
     query.isPlaceHolderData --
     query.isPreviousData --
     query.isRefetchError --
+
+## Mejoras de experiencia de Usuario ##
     
 
 ## Consideraciones ##

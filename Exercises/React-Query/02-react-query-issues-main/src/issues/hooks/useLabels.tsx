@@ -10,6 +10,7 @@ const getLabels = async():Promise<Label[]> => {
     await aumentarTiempoDeRespuesta(2);
 
     const { data } = await githubApi.get<Label[]>('/labels')
+    
     return data
   
   }
@@ -21,10 +22,27 @@ export const useLabels = () => {
         ['labels'],
         getLabels,
         {
-          // Esta propiedad impide que se haga prefetch de los datos cuando el usuario clicka fuera de la ventana y vuelve a clickar en ella. Tenerl oactivo sirve por ejemplo siqueremos que nuestro usuario tenga siempre la última versión de los datos, si va a otra ventana y vuelve a la nuestra.
-          refetchOnWindowFocus: false,
-          // Esta propiedad determina un tiempo de vida de los datos en caché. En este caso, los datos se refrescarán cada 5 minutos. Muy útil para reducir el número de llamadas a una API.
-          staleTime: 1000 * 60 * 5 //
+          // Esta propiedad le dice a React Query que confíe en estos datos, que los muestre como frescos y no los vuelva a buscar.
+          initialData: [
+            {
+              id: 69105383,
+              node_id: "MDU6TGFiZWw2OTEwNTM4Mw==",
+              url: "https://api.github.com/repos/facebook/react/labels/Browser:%20IE",
+              name: "Browser: IE",
+              color: "c7def8",
+              default: false
+            },
+            {
+              id: 2192194047,
+              node_id: "MDU6TGFiZWwyMTkyMTk0MDQ3",
+              url: "https://api.github.com/repos/facebook/react/labels/Component:%20Flight",
+              name: "Component: Flight",
+              color: "c4523e",
+              default: false
+              
+            }
+              
+          ],
         }
       );
     

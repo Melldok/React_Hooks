@@ -9,7 +9,7 @@ const getLabels = async():Promise<Label[]> => {
 
     await aumentarTiempoDeRespuesta(2);
 
-    const { data } = await githubApi.get<Label[]>('/labels')
+    const { data } = await githubApi.get<Label[]>('/labels?per_page=100')
     
     return data
   

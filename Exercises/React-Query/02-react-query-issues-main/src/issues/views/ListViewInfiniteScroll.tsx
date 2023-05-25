@@ -4,15 +4,16 @@ import { LabelPicker } from '../components/LabelPicker';
 import { useIssuesList } from '../hooks/useIssuesList';
 import { LoadingIcon } from '../../shared/components/LoadingIcon';
 import { State } from '../interfaces/issue';
+import { useIssuesInfinite } from '../hooks/useIssuesInfinite';
 
 
-export const ListView = () => {
+export const ListViewInfiniteScroll = () => {
 
 
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [state, setState] = useState<State>()
 
-  const { issuesQuery, page, nextPage, prevPage } = useIssuesList({ state, labels : selectedLabels })
+  const { issuesQuery } = useIssuesInfinite({ state, labels : selectedLabels })
 
   const onLabelChange = ( labelName : string ) => {
     ( selectedLabels.includes(labelName) )
@@ -23,6 +24,7 @@ export const ListView = () => {
 
   }
 
+  console.log(issuesQuery.data?.pages.flat())
   return (
     <div className="row mt-5">
 
@@ -32,27 +34,20 @@ export const ListView = () => {
           ? (<LoadingIcon />)
           : (
             <IssueList 
-              issues={issuesQuery.data || []}
+              issues={issuesQuery.data?.pages.flat() || []}
               state={ state }
               onStateChanged={ (newState) => setState(newState) }
               />
             )
         }
 
-        <div className="d-flex justify-content-between align-items-center mt-2">
-            <button 
-              onClick={prevPage}
-              className='btn btn-outline-primary'
-              disabled={issuesQuery.isFetching}
-              >Prev</button>
-            <span>{page}</span>
-
-            <button 
-              disabled={issuesQuery.isFetching}
-              onClick={nextPage}
-              className='btn btn-outline-primary'
-            >Next</button>
-        </div>
+        <button 
+          className='btn btn-outline-primary mt-2'
+          disabled={!issuesQuery.hasNextPage}
+          onClick={() => issuesQuery.fetchNextPage()}
+          >
+            Load More...
+        </button>
       </div>
       
       <div className="col-4">

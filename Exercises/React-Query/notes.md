@@ -199,6 +199,9 @@ React Query dispone de varios botones de estado que nos indican en qué punto se
             }
               
           ],
+          ,
+         // Aquí podemos especificar el tiempo que queremos que se mantenga la información en cache
+                updatedAt: new Date().getTime() + 10000  
         }
       );
 ```

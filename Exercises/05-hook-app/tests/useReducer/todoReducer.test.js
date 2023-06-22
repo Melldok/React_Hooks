@@ -5,7 +5,7 @@ import { todoReducer } from "../../src/useReducer/todoReducer"
 describe('Pruebas en todoReducer', () => { 
 
     const initialState = [{
-        id: 1,
+        id: 1, 
         description: 'Demo todo',
         done: false,
     }]
